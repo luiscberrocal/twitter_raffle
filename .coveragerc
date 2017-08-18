@@ -1,0 +1,5 @@
+[run]
+include = twitter_raffle/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
