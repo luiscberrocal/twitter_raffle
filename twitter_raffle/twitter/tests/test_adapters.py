@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from django.test import TestCase
 
-from twitter.management.base import TweetAdapter
+from ..management.base import TweetAdapter
 
 
 class TweetAdapterTest(TestCase):
@@ -27,10 +27,11 @@ class TweetAdapterTest(TestCase):
 
         adapter = TweetAdapter()
         tweet_data = adapter.convert(mock_tweet)
-        self.assertEqual(mock_tweet.created_at, tweet_data['created_at'])
-        self.assertEqual(mock_tweet.favorite_count, tweet_data['favorite_count'])
-        self.assertEqual(mock_tweet.id_str, tweet_data['id_str'])
-        self.assertEqual(mock_tweet.source, tweet_data['source'])
-        self.assertEqual(mock_tweet.text, tweet_data['text'])
-        self.assertEqual(mock_tweet.user.description, tweet_data['user_description'])
+        self.assertEqual(mock_tweet.created_at, tweet_data['tweet']['created_at'])
+        self.assertEqual(mock_tweet.favorite_count, tweet_data['tweet']['favorite_count'])
+        self.assertEqual(mock_tweet.id_str, tweet_data['tweet']['id_str'])
+        self.assertEqual(mock_tweet.source, tweet_data['tweet']['source'])
+        self.assertEqual(mock_tweet.text, tweet_data['tweet']['text'])
+
+        self.assertEqual(mock_tweet.user.description, tweet_data['user']['description'])
 

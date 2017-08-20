@@ -4,7 +4,7 @@ from .models import Tweet
 from .models import TwitterUser
 
 
-class TwitterUserSerializers(serializers.ModelSerializer):
+class TwitterUserSerializer(serializers.ModelSerializer):
     """
     Standard Serializer for TwitterUser model.
     """
@@ -16,7 +16,7 @@ class TwitterUserSerializers(serializers.ModelSerializer):
             'verified')
 
 
-class TweetSerializers(serializers.ModelSerializer):
+class TweetSerializer(serializers.ModelSerializer):
     """
     Standard Serializer for Tweet model.
     """

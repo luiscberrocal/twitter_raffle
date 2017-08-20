@@ -13,6 +13,8 @@ services:
       - postgres
     volumes:
       - .:/app
+    env_file:
+     - ./test.env
     environment:
       - POSTGRES_USER=twitter_raffle
       - USE_DOCKER=yes

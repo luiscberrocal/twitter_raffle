@@ -15,6 +15,7 @@ class TwitterUser(TimeStampedModel):
     def __str__(self):
         return self.name
 
+
 class Tweet(TimeStampedModel):
     created_at = models.DateTimeField()
     favorite_count = models.IntegerField(default=0)

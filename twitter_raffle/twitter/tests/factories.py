@@ -16,20 +16,6 @@ from ..models import Tweet, TwitterUser
 faker = FakerFactory.create()
 
 
-class TweetFactory(DjangoModelFactory):
-    class Meta:
-        model = Tweet
-        django_get_or_create = ('id_str',)
-
-    created_at = LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", end_date="now",
-                                                                 tzinfo=timezone(settings.TIME_ZONE)))
-    favorite_count = LazyAttribute(lambda o: randint(1, 100))
-    id_str = LazyAttribute(lambda x: FuzzyText(length=100, chars=string.digits).fuzz())
-    source = LazyAttribute(lambda x: faker.text(max_nb_chars=150))
-    text = LazyAttribute(lambda x: faker.text(max_nb_chars=150))
-    user = SubFactory(TwitterUserFactory)
-
-
 class TwitterUserFactory(DjangoModelFactory):
     class Meta:
         model = TwitterUser
@@ -42,6 +28,20 @@ class TwitterUserFactory(DjangoModelFactory):
     name = LazyAttribute(lambda x: faker.text(max_nb_chars=30))
     screen_name = LazyAttribute(lambda x: faker.text(max_nb_chars=60))
     verified = Iterator([True, False])
+
+
+class TweetFactory(DjangoModelFactory):
+    class Meta:
+        model = Tweet
+        django_get_or_create = ('id_str',)
+
+    created_at = LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", end_date="now",
+                                                                 tzinfo=timezone(settings.TIME_ZONE)))
+    favorite_count = LazyAttribute(lambda o: randint(1, 100))
+    id_str = LazyAttribute(lambda x: FuzzyText(length=100, chars=string.digits).fuzz())
+    source = LazyAttribute(lambda x: faker.text(max_nb_chars=150))
+    text = LazyAttribute(lambda x: faker.text(max_nb_chars=150))
+    user = SubFactory(TwitterUserFactory)
 
 
 class MockTweetFactory(object):
