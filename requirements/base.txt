@@ -47,7 +47,8 @@ redis>=2.10.5
 
 celery==4.1.0
 
-
-
+djangorestframework==3.6.3
+django-filter==1.0.4
+tweepy==3.5.0
 
 # Your custom requirements go here
