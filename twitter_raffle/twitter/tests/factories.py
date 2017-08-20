@@ -45,7 +45,9 @@ class TweetFactory(DjangoModelFactory):
 
 
 class MockTweetFactory(object):
-    def create(self, **kwargs):
+
+    @classmethod
+    def create(cls, **kwargs):
         mock_tweet = Mock()
         mock_tweet.created_at = faker.date_time_between(start_date="-1y", end_date="now",
                                                         tzinfo=timezone(settings.TIME_ZONE))

@@ -43,7 +43,7 @@ class Command(TweepyCommand):
                 tweet_data = adapter.convert(tweet)
                 created = False
                 try:
-                    Tweet.objects.get(id_str=tweet_data['id_str'])
+                    Tweet.objects.get(id_str=tweet_data['tweet']['id_str'])
                 except Tweet.DoesNotExist:
                     Tweet.objects.create(**tweet_data)
                     created = True
