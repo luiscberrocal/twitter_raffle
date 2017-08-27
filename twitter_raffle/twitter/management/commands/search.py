@@ -41,14 +41,9 @@ class Command(TweepyCommand):
                 break
             for tweet in new_tweets:
                 tweet_data = adapter.convert(tweet)
-                created = False
-                try:
-                    Tweet.objects.get(id_str=tweet_data['tweet']['id_str'])
-                except Tweet.DoesNotExist:
-                    Tweet.objects.create(**tweet_data)
-                    created = True
-                if created:
-                    self.stdout.write('{} - {} - {}'.format(count, tweet.created_at, tweet.text))
+                data = Tweet.objects.create_from_tweet_data(tweet_data)
+                if data['tweet_created']:
+                    self.stdout.write('{} - {} - {}'.format(count, data['tweet'].created_at,  data['tweet'].text))
                     count += 1
             tweet_count += len(new_tweets)
             max_id = new_tweets[-1].id

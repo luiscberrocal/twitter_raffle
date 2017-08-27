@@ -134,6 +134,12 @@ LOGGING = {
             'level': 'ERROR',
             'handlers': ['console', 'mail_admins', ],
             'propagate': True
-        }
+        },
+        'twitter_raffle.twitter': {
+            'level': 'DEBUG',
+            'handlers': ['console', ],
+            'propagate': True
+        },
+
     }
 }

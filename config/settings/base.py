@@ -292,3 +292,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+TWITTER_CONSUMER_KEY = env('TWITTER_CONSUMER_KEY', default=None)
+TWITTER_CONSUMER_SECRET = env('TWITTER_CONSUMER_SECRET', default=None)
+TWITTER_ACCESS_TOKEN = env('TWITTER_ACCESS_TOKEN', default=None)
+TWITTER_TOKEN_SECRET = env('TWITTER_TOKEN_SECRET', default=None)
