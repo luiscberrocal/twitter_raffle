@@ -8,6 +8,7 @@ from .models import Tweet, TwitterUser
 class TweetAdmin(admin.ModelAdmin):
     list_display = ('user', 'created_at')
 
+
 @admin.register(TwitterUser)
 class TweetAdmin(admin.ModelAdmin):
     list_display = ('name', 'screen_name')

@@ -2,7 +2,6 @@ from django.db import models
 
 
 class TweetManager(models.Manager):
-
     def create_from_tweet_data(self, tweet_data):
         from .models import TwitterUser
         user_created = False

@@ -1,12 +1,11 @@
 from django.test import TestCase
 
 from twitter_raffle.twitter.models import Tweet
-from ..management.base import TweetAdapter
 from .factories import MockTweetFactory
+from ..management.base import TweetAdapter
 
 
 class TweetTest(TestCase):
-
     def test_create_from_tweet_data(self):
         twitter_tweet = MockTweetFactory.create()
         adapter = TweetAdapter()

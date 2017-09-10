@@ -1,12 +1,8 @@
-import tweepy
-
 from twitter_raffle.twitter.models import Tweet
-from ..base import TweepyCommand, MyStreamListener, TweetAdapter
-
+from ..base import TweepyCommand, TweetAdapter
 
 
 class Command(TweepyCommand):
-
     help = 'search Twitter stream'
 
     def handle(self, **options):
@@ -43,9 +39,7 @@ class Command(TweepyCommand):
                 tweet_data = adapter.convert(tweet)
                 data = Tweet.objects.create_from_tweet_data(tweet_data)
                 if data['tweet_created']:
-                    self.stdout.write('{} - {} - {}'.format(count, data['tweet'].created_at,  data['tweet'].text))
+                    self.stdout.write('{} - {} - {}'.format(count, data['tweet'].created_at, data['tweet'].text))
                     count += 1
             tweet_count += len(new_tweets)
             max_id = new_tweets[-1].id
-
-

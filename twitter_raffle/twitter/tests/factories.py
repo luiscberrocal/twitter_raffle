@@ -45,7 +45,6 @@ class TweetFactory(DjangoModelFactory):
 
 
 class MockTweetFactory(object):
-
     @classmethod
     def create(cls, **kwargs):
         mock_tweet = Mock()

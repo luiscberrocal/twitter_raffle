@@ -7,9 +7,7 @@ from ..management.base import TweetAdapter
 
 
 class TweetAdapterTest(TestCase):
-
     def test_convert(self):
-
         mock_tweet = Mock()
         mock_tweet.created_at = datetime(2017, 1, 1, 13, 15)
         mock_tweet.favorite_count = 2
@@ -34,4 +32,3 @@ class TweetAdapterTest(TestCase):
         self.assertEqual(mock_tweet.text, tweet_data['tweet']['text'])
 
         self.assertEqual(mock_tweet.user.description, tweet_data['user']['description'])
-

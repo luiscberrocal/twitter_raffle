@@ -2,7 +2,6 @@ from ..base import TweepyCommand
 
 
 class Command(TweepyCommand):
-
     help = 'Get user info from Twitter'
 
     def handle(self, **options):
@@ -13,4 +12,3 @@ class Command(TweepyCommand):
         for friend in user.friends():
             print('{}. {}'.format(count, friend.screen_name))
             count += 1
-
