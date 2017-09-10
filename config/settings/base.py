@@ -12,6 +12,8 @@ import environ
 ROOT_DIR = environ.Path(__file__) - 3  # (twitter_raffle/config/settings/base.py - 3 = twitter_raffle/)
 APPS_DIR = ROOT_DIR.path('twitter_raffle')
 
+TEST_OUTPUT_PATH = ROOT_DIR.path('output').root
+
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 
@@ -292,3 +294,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+TWITTER_CONSUMER_KEY = env('TWITTER_CONSUMER_KEY', default=None)
+TWITTER_CONSUMER_SECRET = env('TWITTER_CONSUMER_SECRET', default=None)
+TWITTER_ACCESS_TOKEN = env('TWITTER_ACCESS_TOKEN', default=None)
+TWITTER_TOKEN_SECRET = env('TWITTER_TOKEN_SECRET', default=None)

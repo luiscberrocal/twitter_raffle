@@ -77,3 +77,4 @@ staticfiles/
 .cache/
 
 personal.py
+output

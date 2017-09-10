@@ -1,12 +1,10 @@
-import tweepy
+from django_test_tools.file_utils import serialize_data
 
-from twitter_raffle.twitter.models import Tweet
-from ..base import TweepyCommand, MyStreamListener, TweetAdapter
-
+from ...models import Tweet
+from ..base import TweepyCommand, TweetAdapter
 
 
 class Command(TweepyCommand):
-
     help = 'search Twitter stream'
 
     def handle(self, **options):
@@ -36,21 +34,15 @@ class Command(TweepyCommand):
                     search_params['since_id'] = since_id
 
             new_tweets = self.api.search(**search_params)
+            #serialize_data(new_tweets, format='pickle')
             if not new_tweets:
                 self.stdout.write("No more tweets found")
                 break
             for tweet in new_tweets:
                 tweet_data = adapter.convert(tweet)
-                created = False
-                try:
-                    Tweet.objects.get(id_str=tweet_data['id_str'])
-                except Tweet.DoesNotExist:
-                    Tweet.objects.create(**tweet_data)
-                    created = True
-                if created:
-                    self.stdout.write('{} - {} - {}'.format(count, tweet.created_at, tweet.text))
+                data = Tweet.objects.create_from_tweet_data(tweet_data)
+                if data['tweet_created']:
+                    self.stdout.write('{} - {} - {}'.format(count, data['tweet'].created_at, data['tweet'].text))
                     count += 1
             tweet_count += len(new_tweets)
             max_id = new_tweets[-1].id
-
-

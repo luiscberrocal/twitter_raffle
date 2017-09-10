@@ -1,23 +1,30 @@
+import logging
+
 import tweepy
 from django.conf import settings
 from django.core.management import BaseCommand
 
 from ..models import TwitterUser, Tweet
 
+logger = logging.getLogger(__name__)
+
 
 class TweepyCommand(BaseCommand):
-
     def __init__(self, stdout=None, stderr=None, no_color=False):
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
 
         auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_TOKEN_SECRET)
 
         self.api = tweepy.API(auth)
+        logger.debug('{} : {}'.format('settings.TWITTER_CONSUMER_KEY', settings.TWITTER_CONSUMER_KEY))
+        logger.debug('{} : {}'.format('settings.TWITTER_CONSUMER_SECRET', settings.TWITTER_CONSUMER_SECRET))
+        logger.debug('{} : {}'.format('settings.TWITTER_ACCESS_TOKEN', settings.TWITTER_ACCESS_TOKEN))
+        logger.debug('{} : {}'.format('settings.TWITTER_TOKEN_SECRET', settings.TWITTER_TOKEN_SECRET))
+
         super(TweepyCommand, self).__init__(stdout, stderr, no_color)
 
 
 class TweetAdapter(object):
-
     def convert(self, tweet):
         tweet_data = dict()
         tweet_data['tweet'] = dict()
@@ -45,7 +52,6 @@ class TweetAdapter(object):
 
 
 class MyStreamListener(tweepy.StreamListener):
-
     def __init__(self, api=None, **kwargs):
         super().__init__(api)
         self.stdout = kwargs.get('stdout')

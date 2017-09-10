@@ -1,7 +1,9 @@
 from django.db import models
-
 # Create your models here.
 from model_utils.models import TimeStampedModel
+
+from .managers import TweetManager
+
 
 class TwitterUser(TimeStampedModel):
     description = models.CharField(max_length=300)
@@ -24,4 +26,4 @@ class Tweet(TimeStampedModel):
     text = models.CharField(max_length=150)
     user = models.ForeignKey(TwitterUser, related_name='tweets')
 
-
+    objects = TweetManager()
