@@ -17,6 +17,12 @@ class TwitterUser(TimeStampedModel):
     def __str__(self):
         return self.name
 
+class QueryPattern(TimeStampedModel):
+    search_query =  models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.search_query
+
 
 class Tweet(TimeStampedModel):
     created_at = models.DateTimeField()
@@ -27,3 +33,7 @@ class Tweet(TimeStampedModel):
     user = models.ForeignKey(TwitterUser, related_name='tweets')
 
     objects = TweetManager()
+
+class QueryPatternTweet(TimeStampedModel):
+    query_pattern = models.ForeignKey(QueryPattern, related_name='tweets')
+    tweet = models.ForeignKey(Tweet, related_name='query_patterns')

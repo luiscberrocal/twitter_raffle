@@ -38,7 +38,7 @@ class TestSearchCommand(TestCommandMixin, TestCase):
             tweets = pickle.load(input)
 
         mock_api_search.return_value = tweets
-        call_command('search', stdout=self.content)
+        call_command('search', search_query='#djangocon', stdout=self.content)
         results = self.get_results()
         self.assertEqual(len(results), 174)
         result = '1 - 2017-09-10 02:49:48 - @ericholscher I used this at #djangocon. ' \
