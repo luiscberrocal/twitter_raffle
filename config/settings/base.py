@@ -12,6 +12,8 @@ import environ
 ROOT_DIR = environ.Path(__file__) - 3  # (twitter_raffle/config/settings/base.py - 3 = twitter_raffle/)
 APPS_DIR = ROOT_DIR.path('twitter_raffle')
 
+TEST_OUTPUT_PATH = ROOT_DIR.path('output').root
+
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 

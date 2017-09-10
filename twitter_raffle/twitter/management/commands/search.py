@@ -1,4 +1,6 @@
-from twitter_raffle.twitter.models import Tweet
+from django_test_tools.file_utils import serialize_data
+
+from ...models import Tweet
 from ..base import TweepyCommand, TweetAdapter
 
 
@@ -32,6 +34,7 @@ class Command(TweepyCommand):
                     search_params['since_id'] = since_id
 
             new_tweets = self.api.search(**search_params)
+            #serialize_data(new_tweets, format='pickle')
             if not new_tweets:
                 self.stdout.write("No more tweets found")
                 break

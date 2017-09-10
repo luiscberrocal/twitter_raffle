@@ -18,6 +18,7 @@ services:
     environment:
       - POSTGRES_USER=twitter_raffle
       - USE_DOCKER=yes
+      - DJANGO_SETTINGS_MODULE=config.settings.personal
     ports:
       - "8000:8000"
     command: /start-dev.sh

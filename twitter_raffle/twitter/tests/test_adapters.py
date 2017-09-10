@@ -1,12 +1,15 @@
+import pickle
 from datetime import datetime
 from unittest.mock import Mock
 
+from django.conf import settings
 from django.test import TestCase
 
 from ..management.base import TweetAdapter
 
 
 class TweetAdapterTest(TestCase):
+
     def test_convert(self):
         mock_tweet = Mock()
         mock_tweet.created_at = datetime(2017, 1, 1, 13, 15)
@@ -32,3 +35,26 @@ class TweetAdapterTest(TestCase):
         self.assertEqual(mock_tweet.text, tweet_data['tweet']['text'])
 
         self.assertEqual(mock_tweet.user.description, tweet_data['user']['description'])
+
+    def test_pickled_data(self):
+        filename = settings.APPS_DIR.path(
+            'twitter',
+            'tests',
+            'fixtures',
+            'serialize_data_q_20170910_1148.pickle'
+        ).root
+        with open(filename, 'rb') as input:
+            tweets = pickle.load(input)
+
+        adapter = TweetAdapter()
+        for mock_tweet in tweets:
+            tweet_data = adapter.convert(mock_tweet)
+            self.assertEqual(mock_tweet.created_at, tweet_data['tweet']['created_at'])
+            self.assertEqual(mock_tweet.favorite_count, tweet_data['tweet']['favorite_count'])
+            self.assertEqual(mock_tweet.id_str, tweet_data['tweet']['id_str'])
+            self.assertEqual(mock_tweet.source, tweet_data['tweet']['source'])
+            self.assertEqual(mock_tweet.text, tweet_data['tweet']['text'])
+
+            self.assertEqual(mock_tweet.user.description, tweet_data['user']['description'])
+
+
