@@ -1,7 +1,5 @@
-from django_test_tools.file_utils import serialize_data
-
-from ...models import Tweet
 from ..base import TweepyCommand, TweetAdapter
+from ...models import Tweet
 
 
 class Command(TweepyCommand):
