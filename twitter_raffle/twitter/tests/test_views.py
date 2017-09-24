@@ -5,7 +5,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from ..models import AsyncActionReport
+from ..models import AsyncActionReport, QueryPattern
 from .factories import AsyncActionReportFactory
 
 
@@ -24,6 +24,8 @@ class SearchViewTest(TestCase):
         response = self.client.post(url, data={'search_query': '#djangocon'})
         self.assertEqual(302, response.status_code)
         self.assertEqual(1, AsyncActionReport.objects.count())
+        self.assertEqual(1, QueryPattern.objects.count())
+        self.assertEqual(QueryPattern.objects.get(search_query='#djangocon').search_query, '#djangocon')
 
 
 class AsyncActionReportListViewTest(TestCase):

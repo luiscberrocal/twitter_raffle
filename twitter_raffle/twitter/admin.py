@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Tweet, TwitterUser, AsyncActionReport
+from .models import Tweet, TwitterUser, AsyncActionReport, QueryPattern
 
 
 @admin.register(Tweet)
@@ -16,3 +16,8 @@ class TwitterUserAdmin(admin.ModelAdmin):
 @admin.register(AsyncActionReport)
 class AsyncActionReportAdmin(admin.ModelAdmin):
     list_display = ('id', 'status', 'message_type', 'message', 'created', 'modified')
+
+
+@admin.register(QueryPattern)
+class QueryPatternAdmin(admin.ModelAdmin):
+    list_display = ('search_query',)
