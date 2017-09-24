@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 class TweepyCommand(BaseCommand):
+
+
     def __init__(self, stdout=None, stderr=None, no_color=False):
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
 
@@ -22,6 +24,9 @@ class TweepyCommand(BaseCommand):
         logger.debug('{} : {}'.format('settings.TWITTER_TOKEN_SECRET', settings.TWITTER_TOKEN_SECRET))
 
         super(TweepyCommand, self).__init__(stdout, stderr, no_color)
+
+    def handle(self, *args, **options):
+        pass
 
 
 class TweetAdapter(object):

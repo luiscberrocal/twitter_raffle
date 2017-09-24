@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block page_title %}
+  {% trans "Export data to Excel" %}
+{% endblock page_title %}
+
+{% block content %}
+  <h2>Search twitter</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" role="button" type="submit" value="Find in Twitter">
+    </form>
+{% endblock content %}

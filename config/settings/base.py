@@ -279,6 +279,7 @@ if CELERY_BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'
 else:
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ALWAYS_EAGER = False
 ########## END CELERY
 
 

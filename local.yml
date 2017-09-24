@@ -10,6 +10,7 @@ services:
       context: .
       dockerfile: ./compose/django/Dockerfile-dev
     depends_on:
+      - redis
       - postgres
     volumes:
       - .:/app

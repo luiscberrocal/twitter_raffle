@@ -1,6 +1,11 @@
+from django.conf.urls import url
+from django.views.generic import TemplateView
 from rest_framework import routers
-from twitter import views as tweet_views
 
-router = routers.DefaultRouter()
-router.register(r'tweets', tweet_views.TweetViewSet)
-# urlpatterns = [url(r'^api/v1/', router.urls)]
+
+from .views import SearchView, AsyncActionReportListView
+
+urlpatterns = [
+    url(r'^search/$', SearchView.as_view(), name='search'),
+    url(r'^search-results/$', AsyncActionReportListView.as_view(), name='search-results'),
+]

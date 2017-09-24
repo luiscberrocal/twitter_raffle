@@ -21,7 +21,8 @@ urlpatterns = [
     # User management
     url(r'^users/', include('twitter_raffle.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^twitter/api/v1/', include(router.urls, namespace='api'))
+    url(r'^twitter/api/v1/', include(router.urls, namespace='api')),
+    url(r'^twitter/', include('twitter_raffle.twitter.urls', namespace='twitter'))
 
     # Your stuff: custom urls includes go here
 

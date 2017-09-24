@@ -78,3 +78,5 @@ staticfiles/
 
 personal.py
 output
+celerybeat-schedule
+celerybeat.pid
