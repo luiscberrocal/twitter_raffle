@@ -43,7 +43,7 @@ def fetch_and_store_tweets(search_query, **kwargs):
 
 @shared_task
 def fetch_data_and_store_it(search_query):
-    async_action_report = AsyncActionReport.objects.create()
+    async_action_report = AsyncActionReport.objects.create(message='Started querying for {}'.format(search_query))
     t1 = fetch_and_store_tweets.s(search_query, async_action_report_id=async_action_report.id)
 
     return t1.delay()

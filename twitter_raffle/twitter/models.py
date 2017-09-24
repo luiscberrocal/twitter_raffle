@@ -9,7 +9,7 @@ class TwitterUser(TimeStampedModel):
     description = models.CharField(max_length=300)
     followers_count = models.IntegerField(default=0)
     id_str = models.CharField(max_length=100, unique=True)
-    location = models.CharField(max_length=150)
+    location = models.CharField(max_length=160)
     name = models.CharField(max_length=30)
     screen_name = models.CharField(max_length=60)
     verified = models.BooleanField(default=False)
@@ -29,7 +29,7 @@ class Tweet(TimeStampedModel):
     favorite_count = models.IntegerField(default=0)
     id_str = models.CharField(max_length=100, unique=True)
     source = models.CharField(max_length=150)
-    text = models.CharField(max_length=150)
+    text = models.CharField(max_length=175)
     user = models.ForeignKey(TwitterUser, related_name='tweets')
 
     objects = TweetManager()

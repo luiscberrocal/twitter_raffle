@@ -24,7 +24,11 @@ class SearchView(FormView):
     success_url = reverse_lazy('twitter:search-results')
 
     def post(self, request, *args, **kwargs):
-        async_result = fetch_data_and_store_it('#djangocon')
-        messages.add_message(self.request, messages.SUCCESS, 'Running task {}'.format(async_result.task_id))
+        form = self.get_form()
+        if form.is_valid():
+            query = form.cleaned_data['search_query']
+            async_result = fetch_data_and_store_it.delay(query)
+            msg = 'Task {} running for query {}'.format(async_result.task_id, query)
+            messages.add_message(self.request, messages.SUCCESS, msg)
 
         return super(SearchView, self).post(request, *args, **kwargs)
