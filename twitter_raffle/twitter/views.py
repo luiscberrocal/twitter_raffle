@@ -37,3 +37,10 @@ class AsyncActionReportListView(ListView):
     model = AsyncActionReport
     context_object_name = 'async_reports'
     template_name = 'twitter/search_results.html'
+    ordering = ('-created',)
+
+    def post(self, request, *args, **kwargs):
+        AsyncActionReport.objects.filter(status=AsyncActionReport.OK).delete()
+        return self.get(request, *args, **kwargs)
+
+
