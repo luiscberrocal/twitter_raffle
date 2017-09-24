@@ -7,7 +7,7 @@ from rest_framework import viewsets, filters
 
 from twitter_raffle.twitter.tasks import fetch_and_store_tweets, fetch_data_and_store_it
 from .forms import SearchForm
-from .models import Tweet, AsyncActionReport
+from .models import Tweet, AsyncActionReport, QueryPattern
 from .serializers import TweetSerializer
 
 
@@ -33,7 +33,20 @@ class SearchView(FormView):
 
         return super(SearchView, self).post(request, *args, **kwargs)
 
+class QueryPatternListView(ListView):
+    model = QueryPattern
+    context_object_name = 'query_patterns'
+    template_name = 'twitter/query-patterns.html'
+
+
 class AsyncActionReportListView(ListView):
     model = AsyncActionReport
     context_object_name = 'async_reports'
     template_name = 'twitter/search_results.html'
+    ordering = ('-created',)
+
+    def post(self, request, *args, **kwargs):
+        AsyncActionReport.objects.filter(status=AsyncActionReport.OK).delete()
+        return self.get(request, *args, **kwargs)
+
+

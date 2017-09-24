@@ -7,11 +7,12 @@ from twitter_raffle.twitter.models import Tweet
 
 class SearchTwitterUtil(object):
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
         auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_TOKEN_SECRET)
 
         self.api = tweepy.API(auth)
+        self.stdout = kwargs.get('stdout')
 
     def search(self, search_query):
         adapter = TweetAdapter()
@@ -42,13 +43,16 @@ class SearchTwitterUtil(object):
             new_tweets = self.api.search(**search_params)
             # serialize_data(new_tweets, format='pickle')
             if not new_tweets:
-                #self.stdout.write("No more tweets found")
+                if self.stdout is not None:
+                    self.stdout.write("No more tweets found")
                 break
             for tweet in new_tweets:
                 tweet_data = adapter.convert(tweet)
+                tweet_data['search_query'] = search_query
                 data = Tweet.objects.create_from_tweet_data(tweet_data)
                 if data['tweet_created']:
-                    #self.stdout.write('{} - {} - {}'.format(count, data['tweet'].created_at, data['tweet'].text))
+                    if self.stdout is not None:
+                        self.stdout.write('{} - {} - {}'.format(count + 1, data['tweet'].created_at, data['tweet'].text))
                     count += 1
             tweet_count += len(new_tweets)
             max_id = new_tweets[-1].id

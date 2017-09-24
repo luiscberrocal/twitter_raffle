@@ -10,6 +10,7 @@ class TweetTest(TestCase):
         twitter_tweet = MockTweetFactory.create()
         adapter = TweetAdapter()
         tweet_data = adapter.convert(twitter_tweet)
+        tweet_data['search_query'] = '#djangocon'
         data = Tweet.objects.create_from_tweet_data(tweet_data)
         self.assertEqual(1, Tweet.objects.count())
         self.assertIsNotNone(data['tweet'].pk)

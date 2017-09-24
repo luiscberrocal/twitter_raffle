@@ -11,7 +11,7 @@ from factory.fuzzy import FuzzyText
 from faker import Factory as FakerFactory
 from pytz import timezone
 
-from ..models import Tweet, TwitterUser
+from ..models import Tweet, TwitterUser, AsyncActionReport
 
 faker = FakerFactory.create()
 
@@ -43,6 +43,14 @@ class TweetFactory(DjangoModelFactory):
     text = LazyAttribute(lambda x: faker.text(max_nb_chars=150))
     user = SubFactory(TwitterUserFactory)
 
+class AsyncActionReportFactory(DjangoModelFactory):
+    class Meta:
+        model = AsyncActionReport
+
+    status = Iterator(AsyncActionReport.STATUS_CHOICES, getter=lambda x: x[0])
+    message_type = Iterator(AsyncActionReport.MESSAGE_TYPES, getter=lambda x: x[0])
+    message = LazyAttribute(lambda x: faker.paragraph(nb_sentences=3, variable_nb_sentences=True))
+    error_traceback = LazyAttribute(lambda x: faker.paragraph(nb_sentences=3, variable_nb_sentences=True))
 
 class MockTweetFactory(object):
     @classmethod
