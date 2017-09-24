@@ -29,7 +29,7 @@ class Tweet(TimeStampedModel):
     favorite_count = models.IntegerField(default=0)
     id_str = models.CharField(max_length=100, unique=True)
     source = models.CharField(max_length=150)
-    text = models.CharField(max_length=175)
+    text = models.CharField(max_length=250)
     user = models.ForeignKey(TwitterUser, related_name='tweets')
 
     objects = TweetManager()
