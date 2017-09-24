@@ -37,3 +37,31 @@ class Tweet(TimeStampedModel):
 class QueryPatternTweet(TimeStampedModel):
     query_pattern = models.ForeignKey(QueryPattern, related_name='tweets')
     tweet = models.ForeignKey(Tweet, related_name='query_patterns')
+
+
+class AsyncActionReport(TimeStampedModel):
+    PENDING = 'PENDING'
+    OK = 'OK'
+    FAILED = 'FAILED'
+
+    ERROR = 'ERROR'
+    INFO = 'INFO'
+
+    MESSAGE_TYPES = (
+        (ERROR, 'Error'),
+        (INFO, 'Info'),
+    )
+
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (OK, 'Ok'),
+        (FAILED, 'Failed')
+    )
+
+    status = models.CharField(max_length=7, choices=STATUS_CHOICES, default=PENDING)
+    message_type = models.CharField(max_length=7, choices=MESSAGE_TYPES, default=ERROR)
+    message = models.TextField(null=True, blank=True)
+    error_traceback = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.status

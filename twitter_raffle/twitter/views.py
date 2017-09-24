@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 from rest_framework import viewsets, filters
 
-from twitter_raffle.twitter.tasks import fetch_and_store_tweets
+from twitter_raffle.twitter.tasks import fetch_and_store_tweets, fetch_data_and_store_it
 from .forms import SearchForm
 from .models import Tweet
 from .serializers import TweetSerializer
@@ -24,7 +24,7 @@ class SearchView(FormView):
     success_url = reverse_lazy('twitter:search-results')
 
     def post(self, request, *args, **kwargs):
-        async_result = fetch_and_store_tweets.delay('#djangocon')
+        async_result = fetch_data_and_store_it('#djangocon')
         messages.add_message(self.request, messages.SUCCESS, 'Running task {}'.format(async_result.task_id))
 
         return super(SearchView, self).post(request, *args, **kwargs)
