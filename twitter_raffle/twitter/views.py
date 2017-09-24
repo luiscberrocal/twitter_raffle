@@ -2,12 +2,12 @@
 from django import forms, views
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from rest_framework import viewsets, filters
 
 from twitter_raffle.twitter.tasks import fetch_and_store_tweets, fetch_data_and_store_it
 from .forms import SearchForm
-from .models import Tweet
+from .models import Tweet, AsyncActionReport
 from .serializers import TweetSerializer
 
 
@@ -32,3 +32,8 @@ class SearchView(FormView):
             messages.add_message(self.request, messages.SUCCESS, msg)
 
         return super(SearchView, self).post(request, *args, **kwargs)
+
+class AsyncActionReportListView(ListView):
+    model = AsyncActionReport
+    context_object_name = 'async_reports'
+    template_name = 'twitter/search_results.html'

@@ -3,11 +3,9 @@ from django.views.generic import TemplateView
 from rest_framework import routers
 
 
-from .views import SearchView
-
-
+from .views import SearchView, AsyncActionReportListView
 
 urlpatterns = [
     url(r'^search/$', SearchView.as_view(), name='search'),
-    url(r'^search-results/$', TemplateView.as_view(template_name='twitter/search_results.html'), name='search-results'),
+    url(r'^search-results/$', AsyncActionReportListView.as_view(), name='search-results'),
 ]

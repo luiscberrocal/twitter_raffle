@@ -19,7 +19,7 @@ class SearchTwitterUtil(object):
         tweets_per_qry = 100
         max_id = -1
         since_id = None
-        max_tweets = 2000
+        max_tweets = 3000
 
         tweet_count = 0
         count = 0
