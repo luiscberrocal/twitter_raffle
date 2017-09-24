@@ -48,6 +48,7 @@ class SearchTwitterUtil(object):
                 break
             for tweet in new_tweets:
                 tweet_data = adapter.convert(tweet)
+                tweet_data['search_query'] = search_query
                 data = Tweet.objects.create_from_tweet_data(tweet_data)
                 if data['tweet_created']:
                     if self.stdout is not None:

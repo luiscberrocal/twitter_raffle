@@ -18,7 +18,7 @@ class TwitterUser(TimeStampedModel):
         return self.name
 
 class QueryPattern(TimeStampedModel):
-    search_query =  models.CharField(max_length=150)
+    search_query =  models.CharField(max_length=150, unique=True)
 
     def __str__(self):
         return self.search_query
@@ -37,6 +37,9 @@ class Tweet(TimeStampedModel):
 class QueryPatternTweet(TimeStampedModel):
     query_pattern = models.ForeignKey(QueryPattern, related_name='tweets')
     tweet = models.ForeignKey(Tweet, related_name='query_patterns')
+
+    class Meta:
+        unique_together = ('query_pattern', 'tweet')
 
 
 class AsyncActionReport(TimeStampedModel):
